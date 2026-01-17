@@ -1,0 +1,330 @@
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&display=swap");
+
+/* =======================
+   THEME VARIABLES
+======================= */
+:root {
+  --bg-main: #262626;
+  --bg-soft: #323232;
+  --bg-overlay: rgba(0, 0, 0, 0.55);
+
+  --text-main: #d9d9d9;
+  --text-soft: #8e8e8e;
+  --text-bright: #f9f4da;
+
+  --green: #10a95b;
+  --red: #ec5d49;
+  --red-dark: #ba2a2a;
+  --blue: #11b5e5;
+  --yellow: #fcba29;
+  --purple: #7a5ea7;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  --transition-fast: 0.15s ease;
+  --transition-med: 0.25s ease;
+}
+
+/* =======================
+   RESET
+======================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* =======================
+   BODY / LAYOUT
+======================= */
+body {
+  font-family: "Hanken Grotesk", system-ui, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  padding: 16px;
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* =======================
+   HEADER
+======================= */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header-h1 {
+  font-weight: 600;
+  color: var(--text-bright);
+  font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+}
+
+.header-p {
+  color: var(--text-soft);
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  max-width: 360px;
+  margin-inline: auto;
+  line-height: 1.4;
+}
+
+/* =======================
+   STATUS
+======================= */
+.status-container {
+  color: var(--text-bright);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: grid;
+  place-items: center;
+  max-width: 360px;
+  min-height: 72px;
+  margin: 24px auto;
+  gap: 6px;
+  animation: popIn 0.3s ease;
+}
+
+.status-container.won {
+  background-color: var(--green);
+}
+
+.status-container.lost {
+  background-color: var(--red-dark);
+}
+
+.status-container.farwell {
+  background-color: var(--purple);
+  border: 1px dashed var(--bg-soft);
+  font-style: italic;
+}
+
+.status-container h2 {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+}
+
+.status-container p {
+  font-size: clamp(0.8rem, 2vw, 0.95rem);
+}
+
+/* =======================
+   LANGUAGE CHIPS
+======================= */
+.language-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  max-width: 360px;
+  margin: 0 auto 32px;
+}
+
+.chip {
+  border-radius: var(--radius-sm);
+  padding: 6px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  position: relative;
+  transition: transform var(--transition-fast);
+}
+
+.chip.lost::before {
+  content: "☠️";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 0.9rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: inherit;
+}
+
+/* =======================
+   WORD LETTERS
+======================= */
+.letter-section {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 32px;
+}
+
+.letter {
+  height: clamp(38px, 8vw, 50px);
+  width: clamp(38px, 8vw, 50px);
+  background-color: var(--bg-soft);
+  color: var(--text-bright);
+  border-bottom: 2px solid var(--text-bright);
+  font-weight: 700;
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  display: grid;
+  place-items: center;
+  transition: transform var(--transition-fast);
+}
+
+.letter.missed-letter {
+  color: var(--red);
+}
+
+/* =======================
+   KEYBOARD
+======================= */
+.keyboard-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 520px;
+  margin: 0 auto 24px;
+}
+
+.key-letter {
+  height: clamp(40px, 9vw, 46px);
+  width: clamp(40px, 9vw, 46px);
+  background-color: var(--yellow);
+  color: #1e1e1e;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    transform var(--transition-fast),
+    background-color var(--transition-med);
+}
+
+.key-letter:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.key-letter:active {
+  transform: scale(0.94);
+}
+
+.correct {
+  background-color: var(--green);
+  color: #fff;
+}
+
+.wrong {
+  background-color: var(--red);
+  color: #fff;
+}
+
+.key-letter:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =======================
+   NEW GAME BUTTON
+======================= */
+.new-btn {
+  background-color: var(--blue);
+  color: #1e1e1e;
+  border: none;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.9rem;
+  width: min(240px, 90%);
+  height: 44px;
+  margin: auto;
+  cursor: pointer;
+  transition: background-color var(--transition-med),
+              transform var(--transition-fast);
+}
+
+.new-btn:hover {
+  background-color: #0ea2ce;
+}
+
+.new-btn:active {
+  transform: scale(0.97);
+}
+
+/* =======================
+   ACCESSIBILITY
+======================= */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* =======================
+   OVERLAY (LOSE)
+======================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(5px);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  z-index: 1000;
+  animation: overlayFade 2s forwards;
+}
+
+/* =======================
+   ANIMATIONS
+======================= */
+@keyframes popIn {
+  from {
+    transform: scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes overlayFade {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* =======================
+   REDUCED MOTION
+======================= */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* =======================
+   DESKTOP
+======================= */
+@media (min-width: 768px) {
+  body {
+    padding: 24px;
+  }
+
+  .letter-section {
+    gap: 6px;
+  }
+
+  .keyboard-section {
+    gap: 10px;
+  }
+}
