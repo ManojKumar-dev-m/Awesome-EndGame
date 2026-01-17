@@ -19,22 +19,20 @@ export default function Status(props) {
         );
       }
     }
-    if (!props.over && props.isCorrect) {
+    if (!props.over && props.incorrectGuess) {
       return <p>{props.farwell}</p>;
-    } else {
-      return null;
     }
   }
 
   return (
     <section
-    aria-live="polite"
-    role="status"
+      aria-live="polite"
+      role="status"
       className={clsx(
         "status-container",
         props.won && "won",
         props.lost && "lost",
-        !props.over && props.isCorrect && "farwell",
+        !props.over && props.incorrectGuess && "farwell",
       )}
     >
       {renderGameStatus()}
